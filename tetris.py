@@ -140,6 +140,7 @@ import os
 import time
 import threading
 import copy
+import sys
 from random import choice
 
 class GameArry(object):
@@ -148,14 +149,15 @@ class GameArry(object):
     now_piece = None
     islive = True
     __key = Control()  # 　获得终端按键
+    __key
 
     def __init__(self):
         self.tetris = Tetris()
-
+        self.running = True
     def start_drop(self):
         """ 开始下落 """
-        while True:
-            time.sleep(0.2)
+        while self.running:
+            time.sleep(0.1)
 
             color = self.now_piece.color
 
@@ -202,9 +204,10 @@ class GameArry(object):
         
         # 积木下落的线程
         t = threading.Thread(target=self.start_drop)
+        t.setDaemon(True)
         t.start()
 
-        while True:
+        while self.running:
             key = self.__key.getKey()
             if self.islive:
                 if key == 'LEFT':
@@ -245,9 +248,11 @@ class GameArry(object):
             for index, px in enumerate(piece.piece):
                 self.tetris.board[px] = color
             self.print_ui()
-            print "\n-------Game Over!-------"
+            print "\n-------Game Over!-------\n"
             self.islive = False
-            time.sleep(1000)
+            self.running = False
+            sys.exit(0)
+            
 
 
     def check_score(self):
