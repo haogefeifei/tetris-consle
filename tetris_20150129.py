@@ -1,6 +1,5 @@
 # coding: utf-8
 
-
 class Tetris(object):
 
     """
@@ -157,7 +156,7 @@ class GameArry(object):
     def start_drop(self):
         """ 开始下落 """
         while self.running:
-            time.sleep(0.1)
+            time.sleep(0.2)
 
             color = self.now_piece.color
 
@@ -186,7 +185,6 @@ class GameArry(object):
                 self.check_score() #检查是否得分
                 self.load_piece() #加载新的方块
 
-  
 
     def load_game(self):
         p = ''
@@ -201,7 +199,6 @@ class GameArry(object):
 
         self.tetris.score = 0 #清零分数
         self.load_piece()
-        
         # 积木下落的线程
         t = threading.Thread(target=self.start_drop)
         t.setDaemon(True)
@@ -252,7 +249,6 @@ class GameArry(object):
             self.islive = False
             self.running = False
             sys.exit(0)
-            
 
 
     def check_score(self):
@@ -299,7 +295,7 @@ class GameArry(object):
 
 
     def move(self, direction):
-        """ 
+        """
             左右移动
         """
 
@@ -364,7 +360,6 @@ if __name__ == '__main__':
     game = GameArry()
     game.load_game()
 
-    
 
 
 
@@ -378,6 +373,6 @@ if __name__ == '__main__':
 
 
 
-        
+
 
 
